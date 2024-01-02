@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Books_Manager_Task.props" />
+</Project>
