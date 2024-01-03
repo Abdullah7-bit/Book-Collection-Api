@@ -22,8 +22,8 @@ namespace Books_Manager_Task.Controllers
         public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
         {
             if (_dbContext == null)
-            {
-                return NotFound();
+            {              
+                return StatusCode(StatusCodes.Status404NotFound, new { message = "No Data is present in Database." });
             }
             return await _dbContext.Books.ToListAsync();
 
@@ -35,12 +35,12 @@ namespace Books_Manager_Task.Controllers
         {
             if (_dbContext == null)
             {
-                return NotFound();
+                return StatusCode(StatusCodes.Status404NotFound, new { message = "No Data is present in Database." }); ;
             }
             var book = await _dbContext.Books.FindAsync(id);
             if (book == null)
             {
-                return NotFound();
+                return StatusCode(StatusCodes.Status404NotFound, new { message = $"Books Table does not contain data for ID : {id}." }); ;
             }
             return book;
         }
@@ -62,7 +62,8 @@ namespace Books_Manager_Task.Controllers
         {
             if (id != book.Id)
             {
-                return BadRequest();
+                return StatusCode(StatusCodes.Status400BadRequest, new { message = "Please give the valid ID" });
+
             }
             _dbContext.Entry(book).State = EntityState.Modified;
 
@@ -74,7 +75,7 @@ namespace Books_Manager_Task.Controllers
             {
                 if (!BooksExists(id))
                 {
-                    return NotFound();
+                    return StatusCode(StatusCodes.Status404NotFound, new { message = $"The Record for given {id} does not exist." });
                 }
                 else
                 {
@@ -82,7 +83,7 @@ namespace Books_Manager_Task.Controllers
                 }
 
             }
-            return StatusCode(StatusCodes.Status202Accepted, new { message = "Book Updated Successfully" }); 
+            return StatusCode(StatusCodes.Status202Accepted, new { message = "Book Details Updated Successfully" }); 
 
         }
         private bool BooksExists(long id)
@@ -99,17 +100,18 @@ namespace Books_Manager_Task.Controllers
         {
             if (_dbContext.Books == null)
             {
-                return NotFound();
+                
+                return StatusCode(StatusCodes.Status404NotFound, new { message = "The Books Table is empty" });
             }
             var book = await _dbContext.Books.FindAsync(id);
             if (book == null)
             {
-                return NotFound();
+                return StatusCode(StatusCodes.Status404NotFound, new { message = $"No Record is present for given {id}." });
             }
             _dbContext.Books.Remove(book);
             await _dbContext.SaveChangesAsync();
 
-            return NoContent();
+            return StatusCode(StatusCodes.Status200OK, new {message=$"The Record for id: {id} is deleted Successfully."});
 
         }
 

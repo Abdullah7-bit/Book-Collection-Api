@@ -134,3 +134,4 @@ C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.0\Books_Manager_Task.pdb
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.0\Books_Manager_Task.genruntimeconfig.cache
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.0\ref\Books_Manager_Task.dll
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.0\Books_Manager_Task.sourcelink.json

@@ -1,4 +1,5 @@
 using Books_Manager_Task.Models;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -8,6 +9,18 @@ internal class Program
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        // Initializing HTTP Logging
+        builder.Services.AddHttpLogging(logging =>
+        {
+            logging.LoggingFields = HttpLoggingFields.All;
+            logging.RequestHeaders.Add("sec-ch-ua");
+            logging.ResponseHeaders.Add("MyResponseHeader");
+            logging.MediaTypeOptions.AddText("application/javascript");
+            logging.RequestBodyLogLimit = 4096;
+            logging.ResponseBodyLogLimit = 4096;
+            logging.CombineLogs = true;
+        });
 
         // Add services to the container.
 
@@ -21,6 +34,8 @@ internal class Program
         builder.Services.AddSwaggerGen();
 
         var app = builder.Build();
+
+        app.UseHttpLogging();
 
         app.Logger.LogInformation("Adding Routes");
 
@@ -36,6 +51,12 @@ internal class Program
         app.UseAuthorization();
 
         app.MapControllers();
+
+        app.MapGet("/response", () => "Hello World! (logging response)")
+            .WithHttpLogging(HttpLoggingFields.ResponsePropertiesAndHeaders);
+
+        app.MapGet("/duration", [HttpLogging(loggingFields: HttpLoggingFields.Duration)]
+            () => "Hello World! (logging duration)");
 
         app.Run();
     }
