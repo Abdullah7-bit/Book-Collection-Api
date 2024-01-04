@@ -4,28 +4,54 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 
+using Azure.Core;
+
 namespace Books_Manager_Task.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class BooksController : ControllerBase
     {
-        
+        // Database Configuration
         private readonly BookContext _dbContext;
-        public BooksController(BookContext dbContext)
+        // Logging Configuration
+        private readonly ILogger<log> _logger;
+
+        public BooksController(BookContext dbContext, ILogger<log> logger)
         {
             _dbContext = dbContext;
+            _logger = logger;
+            _logger.LogCritical(1, "Nlog Injected into BooksController");
+
         }
+
+        
+
 
         //GET: api/Books
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
         {
-            if (_dbContext == null)
-            {              
-                return StatusCode(StatusCodes.Status404NotFound, new { message = "No Data is present in Database." });
+            try
+            {
+                
+                _logger.LogInformation("Hello, this is the GetBooks Action!");
+                if (_dbContext == null)
+                {
+                    return StatusCode(StatusCodes.Status404NotFound, new { message = "No Data is present in Database." });
+                }
+                return await _dbContext.Books.ToListAsync();
+
+                //throw new Exception("Error occured");
+                
+
             }
-            return await _dbContext.Books.ToListAsync();
+            catch(Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = $"An error occurred while processing the request. Error details: {ex}" });
+            }
+            
 
         }
 

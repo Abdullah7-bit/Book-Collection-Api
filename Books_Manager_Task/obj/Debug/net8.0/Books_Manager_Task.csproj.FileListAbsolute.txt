@@ -135,3 +135,8 @@ C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.0\Books_Manager_Task.genruntimeconfig.cache
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.0\ref\Books_Manager_Task.dll
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.0\Books_Manager_Task.sourcelink.json
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\nlog.config
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\NLog.dll
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\NLog.Extensions.Logging.dll
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\NLog.Web.AspNetCore.dll
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\NLog.Database.dll
