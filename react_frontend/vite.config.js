@@ -48,7 +48,8 @@ export default defineConfig({
         proxy: {
             '^/api/Books': {
                 target: 'https://localhost:7059',
-                secure: false
+                secure: false,
+                changeOrigin: true
             }
         },
         port: 5173,

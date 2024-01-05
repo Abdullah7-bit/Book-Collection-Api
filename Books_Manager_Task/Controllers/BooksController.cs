@@ -72,7 +72,7 @@ namespace Books_Manager_Task.Controllers
         }
 
         // POST: api/Books
-        [HttpPost]
+        [HttpPost("add")]
         public async Task<ActionResult<Book>> AddBook(Book book)
         {
             _dbContext.Books.Add(book);
@@ -83,7 +83,7 @@ namespace Books_Manager_Task.Controllers
 
 
         // PUT: api/Books/:id
-        [HttpPut("{id}")]
+        [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateBook(int id, Book book)
         {
             if (id != book.Id)
@@ -121,7 +121,8 @@ namespace Books_Manager_Task.Controllers
 
         // Delete: api/Book/:id
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
+        
         public async Task<IActionResult> DeleteBook(int id)
         {
             if (_dbContext.Books == null)

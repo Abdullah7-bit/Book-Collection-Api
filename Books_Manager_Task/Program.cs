@@ -49,6 +49,11 @@ internal class Program
 
             app.MapControllers();
 
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //});
+
            app.Run();
 
         }catch(Exception ex)
