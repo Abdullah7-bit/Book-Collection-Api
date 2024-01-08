@@ -50,7 +50,12 @@ export default defineConfig({
                 target: 'https://localhost:7059',
                 secure: false,
                 changeOrigin: true
-            }
+            },
+            '^/api/Books/update': {
+                target: 'https://localhost:7059',
+                secure: false,
+                changeOrigin: true,
+            },
         },
         port: 5173,
         https: {

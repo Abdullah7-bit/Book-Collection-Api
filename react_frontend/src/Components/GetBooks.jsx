@@ -1,5 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 
 function GetBooks() {
 
@@ -7,10 +8,11 @@ function GetBooks() {
     setTimeout(() => {
         populateBookData();
     }, 1000);
-    
+
+    // Using Delete functionality from the API
     const deleteBook = async (id) => {
         try {
-            const repsonse = await fetch(`api/Books/delete/${id}`, {
+            const response = await fetch(`api/Books/delete/${id}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {
@@ -27,11 +29,6 @@ function GetBooks() {
 
             const updatedBooks = books.filter(book => book.id !== id);
             setBooks(updatedBooks);
-
-            // Add a delay before fetching the updated data
-            setTimeout(() => {
-                populateBookData();
-            }, 5000); // Adjust the delay time as needed
 
             console.log(`Book with ID ${id} deleted successfully.`);                
 
@@ -70,6 +67,9 @@ function GetBooks() {
                         <td>{bookdata.publishedDate}</td>
                         <td>{bookdata.edition}</td>
                         <td>{bookdata.isbn}</td>
+                        <td key={bookdata.id}>                          
+                            <Link className="btn btn-info" to={`/editbook/${bookdata.id}`}>Edit</Link>
+                        </td>
                         <td>
                             <button onClick={() => deleteBook(bookdata.id)}>Delete</button>
                         </td>
@@ -85,6 +85,7 @@ function GetBooks() {
           {contents}
       </div>
     )
+    // Fetching the Data from the API 
     async function populateBookData() {
         const response = await fetch('api/Books');
         const data = await response.json();

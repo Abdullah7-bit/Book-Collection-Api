@@ -82,7 +82,7 @@ namespace Books_Manager_Task.Controllers
         }
 
 
-        // PUT: api/Books/:id
+        // PUT: api/Books/update/:id
         [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateBook(int id, Book book)
         {
