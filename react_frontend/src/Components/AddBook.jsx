@@ -1,4 +1,5 @@
 import React, { useState,useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function AddBooks() {
 
@@ -54,13 +55,16 @@ function AddBooks() {
             setinputISBN(value);
         }
     };
-        
+    const navigate = useNavigate();
+
         // Event handler for button click
         const handleButtonClick = () => {
             // Call the function with the current input value
             //processInput(inputTitle, inputAuthor, inputPublish, inputpublishDate, inputEdition, inputISBN);
             sendDataToApi();
-
+            // Redirect to the allbook route
+            
+            navigate("/allbook");
         };
         
         
@@ -112,38 +116,76 @@ function AddBooks() {
       <>
             <h1>Add a Book Record</h1>
           <div>
-              <label>
-                  Id:
-                  <input type="number" name="inputId" value={inputId} onChange={handleInputChange} />
-              </label>
-              <label>
-                  Title:
-                  <input type="text" name="inputTitle" value={inputTitle} onChange={handleInputChange}  />
-              </label>
-              <label>
-                  Author:
-                  <input type="text" name="inputAuthor" value={inputAuthor} onChange={handleInputChange} />
-              </label>
-              <label>
-                  Publisher:
-                  <input type="text" name="inputPublisher" value={inputPublisher} onChange={handleInputChange} />
-              </label>
-              <label>
-                  Publish Date:
-                  <input type="date" name='inputpublishDate' value={inputpublishDate} onChange={handleInputChange} placeholder="e.g. 2000-09-11" />
-              </label>
-              <label>
-                  Edition:
-                  <input type="text" name="inputEdition" value={inputEdition} onChange={handleInputChange} />
-              </label>
-              <label>
-                  ISBN:
-                  <input type="text" name="inputISBN" value={inputISBN} onChange={handleInputChange} />
-              </label>
-              <button onClick={handleButtonClick}>Add Book</button>
+              <table className="table table-borderless">
+
+                  <tbody>
+                      <tr>
+                          <th scope="row">ID : </th>
+                          <td>
+                              <input type="number" name="inputId" value={inputId} onChange={handleInputChange} />
+                          </td>
+
+                      </tr>
+                      <tr>
+                          <th scope="row">Title : </th>
+                          <td>
+                              <input type="text" name="inputTitle" value={inputTitle} onChange={handleInputChange} />
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Author:</th>
+
+                          <td>
+                              <input type="text" name="inputAuthor" value={inputAuthor} onChange={handleInputChange} />
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Publisher:</th>
+
+                          <td>
+                              <input type="text" name="inputPublisher" value={inputPublisher} onChange={handleInputChange} />
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Publish Date:</th>
+
+                          <td>
+                              <input type="date" name='inputpublishDate' value={inputpublishDate} onChange={handleInputChange} placeholder="e.g. 2000-09-11" />
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row"> Edition:</th>
+
+                          <td>
+                              <input type="text" name="inputEdition" value={inputEdition} onChange={handleInputChange} />
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row">ISBN : </th>
+
+                          <td>
+                              <input type="text" name="inputISBN" value={inputISBN} onChange={handleInputChange} />
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              <button onClick={handleButtonClick}>Add Book</button>
+                          </td>
+                          
+                      </tr>
+                  </tbody>
+              </table>
+
+
+            
+                 
+                  
+
+             
               
           </div>
-          
+
+      
     
       </>
     );

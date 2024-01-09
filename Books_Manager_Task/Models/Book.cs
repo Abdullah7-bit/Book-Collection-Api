@@ -10,7 +10,7 @@
 
         public string Publisher { get; set; } = string.Empty;
 
-        public DateOnly PublishedDate { get; set; } 
+        public DateOnly PublishedDate { get; set; }
 
         public string Edition { get; set; } = string.Empty;
 

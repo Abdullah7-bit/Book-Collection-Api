@@ -140,3 +140,9 @@ C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\NLog.Extensions.Logging.dll
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\NLog.Web.AspNetCore.dll
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\NLog.Database.dll
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\System.Web.Cors.dll
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\System.Net.Http.Formatting.dll
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\System.Web.Http.dll
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\System.Web.Http.Cors.dll
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll

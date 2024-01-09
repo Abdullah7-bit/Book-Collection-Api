@@ -28,9 +28,6 @@ function App() {
                                 <Link className="nav-link" to={`addbook`}>Add Book</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to={`editbook`}>Edit Books</Link>
-                            </li>
-                            <li className="nav-item">
                                 <Link className="nav-link" to={`searchbook`}>Search Books</Link>
                             </li>
                         </ul>

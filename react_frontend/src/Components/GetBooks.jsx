@@ -71,7 +71,7 @@ function GetBooks() {
                             <Link className="btn btn-info" to={`/editbook/${bookdata.id}`}>Edit</Link>
                         </td>
                         <td>
-                            <button onClick={() => deleteBook(bookdata.id)}>Delete</button>
+                            <button className="btn btn-danger" onClick={() => deleteBook(bookdata.id)}>Delete</button>
                         </td>
                     </tr>
                 )}

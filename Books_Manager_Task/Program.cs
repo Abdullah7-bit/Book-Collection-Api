@@ -30,6 +30,12 @@ internal class Program
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            //services cors
+            builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+            {
+                builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+            }));
+
             var app = builder.Build();
 
             
@@ -44,8 +50,10 @@ internal class Program
             }
 
             app.UseHttpsRedirection();
-
+            app.UseRouting();
+            app.UseCors("corsapp");
             app.UseAuthorization();
+
 
             app.MapControllers();
 

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 
 function EditBook() {
     const { id } = useParams();
-
+    const navigate = useNavigate();
     
     const [books, setBooks] = useState({
         id: '',
@@ -12,7 +12,7 @@ function EditBook() {
         publisher: '',
         publishedDate: '',
         edition: '',
-        ISBN: '',
+        isbn: '',
     });
     // Base States
     const [inputId, setinputId] = useState('');
@@ -23,88 +23,106 @@ function EditBook() {
     const [inputEdition, setinputEdition] = useState('');
     const [inputISBN, setinputISBN] = useState('');
 
-    async function populateBookData_Id() {
+    const populateBookData_Id = async () => {
         try {
-            const response = await fetch(`api/Books/${id}`, {
+            const response = await fetch(`https://localhost:7059/api/Books/${id}`, {
                 method: 'GET',
             });
+
             if (!response.ok) {
                 console.log(`Failed to fetch data from the API with Id: ${id}`);
                 return;
             }
-            // Check if the response is JSON
+
             const contentType = response.headers.get('content-type');
             if (!contentType || !contentType.includes('application/json')) {
                 console.error('Response is not in JSON format');
                 return;
             }
+
             const data = await response.json();
-
-
             console.log('Book data:', data);
-            console.log(response.status);
-            setBooks(data);
-            // Setting the input fields As the data we get from Response JSON
+
+            // Update state with the retrieved data
+            setBooks({
+                id: data.id,
+                title: data.title,
+                author: data.author,
+                publisher: data.publisher,
+                publishedDate: data.publishedDate,
+                edition: data.edition,
+                isbn: data.isbn,
+            });
+
+            // Update input states if needed
             setinputId(data.id);
             setinputTitle(data.title);
             setinputAuthor(data.author);
             setinputPublisher(data.publisher);
-            setinputpublishDate(data.publishDate);
+            setinputpublishDate(data.publishedDate);
             setinputEdition(data.edition);
-            setinputISBN(data.ISBN);
+            setinputISBN(data.isbn);
+
         } catch (error) {
             console.log("Error While Fetching the data: ", error);
         }
-
     };
 
-       
-
-    // Event handler for button click
-    const handleButtonClick = () => {
-        // Call the function with the current input value
-        
-       editBook();
-
-    };
+   
     useEffect(() => {
         populateBookData_Id();
     }, []);
 
+    // Event handler for button click
+    const handleButtonClick = () => {
+        // Call the function with the current input value
+        editBook();
+        navigate('/allbook');
+    };
+
     //  APi Interactivity
     const editBook = async () => {
         try {
-            const response = await fetch(`api/Books/update/${id}`, {
+            const response = await fetch(`https://localhost:7059/api/Books/update/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     id: books.id,
-                    title: inputTitle,
-                    author: inputAuthor,
-                    publisher: inputPublisher,
-                    publishDate: inputpublishDate,
-                    edition: inputEdition,
-                    ISBN: inputISBN,
+                    title: books.title,
+                    author: books.author,
+                    publisher: books.publisher,
+                    publishDate: books.publishedDate,
+                    edition: books.edition,
+                    isbn: books.isbn,
                 }),
             });
 
             if (response.ok) {
-                console.log('Data fetch successfully!');
-                // If successful
-                const updatedBook = await response.json();
+                
 
-                // Setting the input fields As the data we get from Response JSON
-                setinputId(updatedBook.id);
-                setinputTitle(updatedBook.title);
-                setinputAuthor(updatedBook.author);
-                setinputPublisher(updatedBook.publisher);
-                setinputpublishDate(updatedBook.publishDate);
-                setinputEdition(updatedBook.edition);
-                setinputISBN(updatedBook.ISBN);
+                // Setting the input fields empty when Data sent successfully
+                setinputId('');
+                setinputTitle('');
+                setinputAuthor('');
+                setinputPublisher('');
+                setinputpublishDate('');
+                setinputEdition('');
+                setinputISBN('');
 
-                console.log('Book updated successfully:', updatedBook);
+                setBooks({
+                    id: '',
+                    title: '',
+                    author: '',
+                    publisher: '',
+                    publishDate: '',
+                    edition: '',
+                    isbn: '',
+                });
+
+
+                console.log('Book updated successfully:');
             } else {
                 console.error('Failed to update book:', response.statusText);
             }
@@ -151,8 +169,7 @@ function EditBook() {
               </label>
               <label>
                   ISBN:
-
-                  <input type="text" name="isbn" value={books.ISBN} onChange={(e) => setBooks({ ...books, ISBN: e.target.value })} />
+                  <input type="text" name="isbn" value={books.isbn} onChange={(e) => setBooks({ ...books, isbn: e.target.value })} />
 
               </label>
               <button onClick={handleButtonClick}>Add Book</button>
