@@ -5,20 +5,22 @@ import { Link } from "react-router-dom";
 function GetBooks() {
 
     const [books, setBooks] = useState();
-    setTimeout(() => {
-        populateBookData();
-    }, 1000);
-
+    
     // Using Delete functionality from the API
     const deleteBook = async (id) => {
         try {
             const response = await fetch(`api/Books/delete/${id}`, {
                 method: 'DELETE',
             });
+            
+
             if (!response.ok) {
                 console.error(`Failed to delete book with ID ${id}.`);
                 return; // Exit the function if the request was not successful
             }
+            
+
+            // To Test the Response JSON in Browser Console
             //if (response.ok) {
             //    const updatedBooks = books.filter(book => book.id !== id);
             //    setBooks(updatedBooks);
@@ -30,6 +32,7 @@ function GetBooks() {
             const updatedBooks = books.filter(book => book.id !== id);
             setBooks(updatedBooks);
 
+            
             console.log(`Book with ID ${id} deleted successfully.`);                
 
         } catch (error) {
@@ -40,7 +43,7 @@ function GetBooks() {
     useEffect(() => {
         populateBookData();
     }, []);
-   
+    
 
     const contents = books === undefined
         ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
@@ -72,6 +75,7 @@ function GetBooks() {
                         </td>
                         <td>
                             <button className="btn btn-danger" onClick={() => deleteBook(bookdata.id)}>Delete</button>
+                            
                         </td>
                     </tr>
                 )}

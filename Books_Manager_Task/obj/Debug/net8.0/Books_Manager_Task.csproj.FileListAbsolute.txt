@@ -1,3 +1,4 @@
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\nlog.config
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\appsettings.json
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\Books_Manager_Task.exe
@@ -8,6 +9,10 @@ C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\Azure.Identity.dll
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\Humanizer.dll
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\System.Web.Cors.dll
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\System.Net.Http.Formatting.dll
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\System.Web.Http.dll
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\System.Web.Http.Cors.dll
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
@@ -32,6 +37,12 @@ C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\NLog.dll
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\NLog.Database.dll
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\NLog.Extensions.Logging.dll
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\NLog.Web.AspNetCore.dll
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -120,6 +131,7 @@ C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.0\Books_Manager_Task.csproj.CoreCompileInputs.cache
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.0\Books_Manager_Task.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.0\Books_Manager_Task.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.0\Books_Manager_Task.sourcelink.json
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.0\staticwebassets\msbuild.Books_Manager_Task.Microsoft.AspNetCore.StaticWebAssets.props
@@ -134,15 +146,3 @@ C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.0\Books_Manager_Task.pdb
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.0\Books_Manager_Task.genruntimeconfig.cache
 C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.0\ref\Books_Manager_Task.dll
-C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\obj\Debug\net8.0\Books_Manager_Task.sourcelink.json
-C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\nlog.config
-C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\NLog.dll
-C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\NLog.Extensions.Logging.dll
-C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\NLog.Web.AspNetCore.dll
-C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\NLog.Database.dll
-C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\System.Web.Cors.dll
-C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\System.Net.Http.Formatting.dll
-C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\System.Web.Http.dll
-C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\System.Web.Http.Cors.dll
-C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\Newtonsoft.Json.dll
-C:\Users\MYSQ\source\repos\Books_Manager_Task\Books_Manager_Task\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll

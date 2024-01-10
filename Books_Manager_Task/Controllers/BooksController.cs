@@ -21,7 +21,7 @@ namespace Books_Manager_Task.Controllers
         {
             _dbContext = dbContext;
             _logger = logger;
-            _logger.LogCritical(1, "Nlog Injected into BooksController");
+            _logger.LogInformation(1, "Nlog Injected into BooksController");
 
         }
 
@@ -35,7 +35,7 @@ namespace Books_Manager_Task.Controllers
             try
             {
                 
-                _logger.LogInformation("Hello, this is the GetBooks Action!");
+                _logger.LogInformation("This is the GetBooks API!");
                 if (_dbContext == null)
                 {
                     return StatusCode(StatusCodes.Status404NotFound, new { message = "No Data is present in Database." });
@@ -49,7 +49,7 @@ namespace Books_Manager_Task.Controllers
             catch(Exception ex)
             {
                 _logger.LogError(ex.ToString());
-                return StatusCode(StatusCodes.Status500InternalServerError, new { message = $"An error occurred while processing the request. Error details: {ex}" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = $"An error occurred while processing the request For GET API. Error details: {ex}" });
             }
             
 
@@ -59,26 +59,47 @@ namespace Books_Manager_Task.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Book>> GetBooks(int id)
         {
-            if (_dbContext == null)
+            try
             {
-                return StatusCode(StatusCodes.Status404NotFound, new { message = "No Data is present in Database." }); ;
+                _logger.LogInformation("This is the GetBooks By ID API!");
+                if (_dbContext == null)
+                {
+                    return StatusCode(StatusCodes.Status404NotFound, new { message = "No Data is present in Database." }); ;
+                }
+                var book = await _dbContext.Books.FindAsync(id);
+                if (book == null)
+                {
+                    return StatusCode(StatusCodes.Status404NotFound, new { message = $"Books Table does not contain data for ID : {id}." }); ;
+                }
+                return book;
+
             }
-            var book = await _dbContext.Books.FindAsync(id);
-            if (book == null)
+            catch(Exception ex)
             {
-                return StatusCode(StatusCodes.Status404NotFound, new { message = $"Books Table does not contain data for ID : {id}." }); ;
+                _logger.LogError(ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = $"An error occurred while processing the request For Parameter GET API. Error details: {ex}" });
             }
-            return book;
+            
         }
 
         // POST: api/Books
         [HttpPost("add")]
         public async Task<ActionResult<Book>> AddBook(Book book)
         {
-            _dbContext.Books.Add(book);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
 
-            return CreatedAtAction(nameof(GetBooks), new { id = book.Id }, book);
+                _dbContext.Books.Add(book);
+                await _dbContext.SaveChangesAsync();
+
+                return CreatedAtAction(nameof(GetBooks), new { id = book.Id }, book);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = $"An error occurred while processing the request For POST API. Error details: {ex}" });
+            }
+            
         }
 
 
@@ -86,6 +107,7 @@ namespace Books_Manager_Task.Controllers
         [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateBook(int id, Book book)
         {
+            
             if (id != book.Id)
             {
                 return StatusCode(StatusCodes.Status400BadRequest, new { message = "Please give the valid ID" });
@@ -125,20 +147,28 @@ namespace Books_Manager_Task.Controllers
         
         public async Task<IActionResult> DeleteBook(int id)
         {
-            if (_dbContext.Books == null)
+            try
             {
-                
-                return StatusCode(StatusCodes.Status404NotFound, new { message = "The Books Table is empty" });
-            }
-            var book = await _dbContext.Books.FindAsync(id);
-            if (book == null)
-            {
-                return StatusCode(StatusCodes.Status404NotFound, new { message = $"No Record is present for given {id}." });
-            }
-            _dbContext.Books.Remove(book);
-            await _dbContext.SaveChangesAsync();
+                if (_dbContext.Books == null)
+                {
 
-            return StatusCode(StatusCodes.Status200OK, new {message=$"The Record for id: {id} is deleted Successfully."});
+                    return StatusCode(StatusCodes.Status404NotFound, new { message = "The Books Table is empty" });
+                }
+                var book = await _dbContext.Books.FindAsync(id);
+                if (book == null)
+                {
+                    return StatusCode(StatusCodes.Status404NotFound, new { message = $"No Record is present for given {id}." });
+                }
+                _dbContext.Books.Remove(book);
+                await _dbContext.SaveChangesAsync();
+
+                return StatusCode(StatusCodes.Status200OK, new { message = $"The Record for id: {id} is deleted Successfully." });
+            }catch(Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = $"An error occurred while processing the request For DELETE API. Error details: {ex}" });
+            }
+            
 
         }
 

@@ -138,42 +138,57 @@ function EditBook() {
        
           <h1>Edit Book Record</h1>
           <div>
-              <label>
-                  Id:
-                  <input type="number" name="inputId" value={books.id} onChange={(e) => setBooks({ ...books, id: parseInt(e.target.value, 10) || '' })} />
-
-              </label>
-              <label>
-                  Title:
-                  <input type="text" name="title" value={books.title} onChange={(e) => setBooks({ ...books, title: e.target.value })} />
-              </label>
-              <label>
-                  Author:
-                  <input type="text" name="author" value={books.author} onChange={(e) => setBooks({ ...books, author: e.target.value })} />
-
-              </label>
-              <label>
-                  Publisher:
-                  <input type="text" name="publisher" value={books.publisher} onChange={(e) => setBooks({ ...books, publisher: e.target.value })} />
-
-              </label>
-              <label>
-                  Publish Date:
-                  <input type="text" name="publisheddate" value={books.publishedDate} onChange={(e) => setBooks({ ...books, publishedDate: e.target.value })} placeholder="e.g. 2000-09-11" />
-
-              </label>
-              <label>
-                  Edition:
-                  <input type="text" name="edition" value={books.edition} onChange={(e) => setBooks({ ...books, edition: e.target.value })} />
-
-              </label>
-              <label>
-                  ISBN:
-                  <input type="text" name="isbn" value={books.isbn} onChange={(e) => setBooks({ ...books, isbn: e.target.value })} />
-
-              </label>
-              <button onClick={handleButtonClick}>Add Book</button>
-
+              <table className="table table-borderless">
+                  <tbody>
+                      <tr>
+                          <th scope="row">ID : </th>
+                          <td>
+                              <input type="number" name="inputId" readOnly value={books.id} onChange={(e) => setBooks({ ...books, id: parseInt(e.target.value, 10) || '' })} />
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Tittle : </th>
+                          <td>
+                              <input type="text" name="title" value={books.title} onChange={(e) => setBooks({ ...books, title: e.target.value })} />
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Author : </th>
+                          <td>
+                              <input type="text" name="author" value={books.author} onChange={(e) => setBooks({ ...books, author: e.target.value })} />
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Publisher : </th>
+                          <td>
+                              <input type="text" name="publisher" value={books.publisher} onChange={(e) => setBooks({ ...books, publisher: e.target.value })} />
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Published Date : </th>
+                          <td>
+                              <input type="text" name="publisheddate" value={books.publishedDate} onChange={(e) => setBooks({ ...books, publishedDate: e.target.value })} placeholder="e.g. 2000-09-11" />
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Edition : </th>
+                          <td>
+                              <input type="text" name="edition" value={books.edition} onChange={(e) => setBooks({ ...books, edition: e.target.value })} />
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row">ISBN : </th>
+                          <td>
+                              <input type="text" name="isbn" value={books.isbn} onChange={(e) => setBooks({ ...books, isbn: e.target.value })} />
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              <button onClick={handleButtonClick}>Add Book</button>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table> 
           </div>
       </>
     );

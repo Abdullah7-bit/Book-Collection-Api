@@ -56,24 +56,25 @@ function AddBooks() {
         }
     };
     const navigate = useNavigate();
+    let update;
 
         // Event handler for button click
-        const handleButtonClick = () => {
+        const handleButtonClick = async () => {
             // Call the function with the current input value
             //processInput(inputTitle, inputAuthor, inputPublish, inputpublishDate, inputEdition, inputISBN);
-            sendDataToApi();
-            // Redirect to the allbook route
+
             
-            navigate("/allbook");
+            await sendDataToApi();
+
+                // Redirect to the allbook route          
+                setTimeout(() => {
+                    navigate("/allbook");
+                }, 5000);
+
+            
         };
         
         
-    
-
-    //useEffect(() => {
-    //    populateAddBook();
-    //}, []);
-
     const sendDataToApi = async () => {
         try {
             const response = await fetch('api/Books/add', {
@@ -92,9 +93,27 @@ function AddBooks() {
                 }),
             });
 
-            if (response.ok) {
+            if (response.ok) {         
+
+                update = (
+                    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header">
+                                <img src="..." class="rounded me-2" alt="..." />
+                                <strong class="me-auto">Bootstrap</strong>
+                                <small>11 mins ago</small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                Hello, world! This is a toast message.
+                            </div>
+                        </div>
+                    </div>
+                );
+
                 console.log('Data sent successfully!');
-                // Optionally, reset the input fields or perform other actions
+
+                // Reset the input fields to Empty
                 setinputId('');
                 setinputTitle('');
                 setinputAuthor('');
@@ -102,9 +121,13 @@ function AddBooks() {
                 setinputpublishDate('');
                 setinputEdition('');
                 setinputISBN('');
+
+
             } else {
                 console.error('Failed to send data to the API.');
             }
+
+          
         } catch (error) {
             console.error('Error:', error);
         }
@@ -114,10 +137,11 @@ function AddBooks() {
 
   return (
       <>
+          
             <h1>Add a Book Record</h1>
           <div>
               <table className="table table-borderless">
-
+                 
                   <tbody>
                       <tr>
                           <th scope="row">ID : </th>
@@ -150,7 +174,7 @@ function AddBooks() {
                           <th scope="row">Publish Date:</th>
 
                           <td>
-                              <input type="date" name='inputpublishDate' value={inputpublishDate} onChange={handleInputChange} placeholder="e.g. 2000-09-11" />
+                              <input type="text" name="inputpublishDate" value={inputpublishDate} onChange={handleInputChange} placeholder="e.g. 2000-09-11" />
                           </td>
                       </tr>
                       <tr>
@@ -169,10 +193,11 @@ function AddBooks() {
                       </tr>
                       <tr>
                           <td>
-                              <button onClick={handleButtonClick}>Add Book</button>
+                              <button id="liveToastBtn" onClick={handleButtonClick}>Add Book</button>
                           </td>
-                          
+                          {update}
                       </tr>
+                      
                   </tbody>
               </table>
 
