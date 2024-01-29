@@ -5,9 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Books_Manager_Task.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BooksController : ControllerBase
@@ -15,9 +17,9 @@ namespace Books_Manager_Task.Controllers
         // Database Configuration
         private readonly BookContext _dbContext;
         // Logging Configuration
-        private readonly ILogger<log> _logger;
+        private readonly ILogger<Log> _logger;
 
-        public BooksController(BookContext dbContext, ILogger<log> logger)
+        public BooksController(BookContext dbContext, ILogger<Log> logger)
         {
             _dbContext = dbContext;
             _logger = logger;
@@ -25,10 +27,11 @@ namespace Books_Manager_Task.Controllers
 
         }
 
-        
+
 
 
         //GET: api/Books
+       
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
         {

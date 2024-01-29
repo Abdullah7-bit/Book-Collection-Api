@@ -1,8 +1,11 @@
 using Books_Manager_Task.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using NLog;
 using NLog.Web;
+using System.Text;
 
 
 
@@ -30,6 +33,26 @@ internal class Program
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            //Jwt configuration starts here
+            var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();
+            var jwtKey = builder.Configuration.GetSection("Jwt:Key").Get<string>();
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                 {
+                     options.TokenValidationParameters = new TokenValidationParameters
+                     {
+                         ValidateIssuer = true,
+                         ValidateAudience = true,
+                         ValidateLifetime = true,
+                         ValidateIssuerSigningKey = true,
+                         ValidIssuer = jwtIssuer,
+                         ValidAudience = jwtIssuer,
+                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+                     };
+                 });
+
+
             //services cors
             builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
             {
@@ -52,6 +75,8 @@ internal class Program
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseCors("corsapp");
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
