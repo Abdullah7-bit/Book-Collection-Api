@@ -17,8 +17,5 @@
         public string ISBN { get; set; } = string.Empty;
 
        
-
-
-
     }
 }

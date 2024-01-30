@@ -8,10 +8,8 @@ using NLog.Web;
 using System.Text;
 
 
-
 internal class Program
-{
-    
+{    
     private static void Main(string[] args)
     {
         var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
@@ -62,7 +60,6 @@ internal class Program
             var app = builder.Build();
 
             
-
             app.Logger.LogInformation("Adding Routes");
 
             // Configure the HTTP request pipeline.
@@ -101,6 +98,5 @@ internal class Program
             NLog.LogManager.Shutdown();
         }
 
-        
     }
 }

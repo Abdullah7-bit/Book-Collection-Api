@@ -28,8 +28,6 @@ namespace Books_Manager_Task.Controllers
         }
 
 
-
-
         //GET: api/Books
        
         [HttpGet]

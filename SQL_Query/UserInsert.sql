@@ -1,0 +1,2 @@
+﻿insert into [dbo].[Users] ([Username],[Email],[Password],[Salt],[FirstName],[LastName],[Roles],[IsActive],[CreatedAt],[UpdatedAt],[LastLogin],[Token],[RefreshToken])
+values ('john_doe','john.doe@example.com','testpassword','randomsalt','John','Doe','User',1,'2024-01-29T12:00:00Z','2024-01-29T12:00:00Z','2023-01-25 08:30:00','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG5fZG9lIiwiUm9sZXMiOiJVc2VyIiwiQ3JlYXRlZEF0IjoiMjAyNC0wMS0yOVQxMjowMDowMFoifQ.jCr6ynmtJj9XLbEBz72H20l1BjLvfdbTZ654aX19Jm4','random_refresh_token_here');

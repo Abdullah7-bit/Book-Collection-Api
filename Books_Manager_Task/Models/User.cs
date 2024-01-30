@@ -18,7 +18,7 @@ namespace Books_Manager_Task.Models
         public string Password { get; set; }
 
         [Required]
-        public string Salt { get; set; }
+        public string? Salt { get; set; }
 
         public string FirstName { get; set; }
 
