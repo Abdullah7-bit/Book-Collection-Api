@@ -17,8 +17,8 @@ namespace Books_Manager_Task.Models
         [Required]
         public string Password { get; set; }
 
-        [Required]
-        public string? Salt { get; set; }
+        
+        public string Salt { get; set; }
 
         public string FirstName { get; set; }
 
@@ -34,10 +34,12 @@ namespace Books_Manager_Task.Models
 
         public DateTime? LastLogin { get; set; }
 
-        public string Token { get; set; }
+        public string? Token { get; set; }
+
+        public string TokenCreatedAt { get; set; }
 
         public string RefreshToken { get; set; }
 
-        public DateTime? TokenExpiration { get; set; }
+        public DateTime TokenExpiration { get; set; }
     }
 }

@@ -7,5 +7,15 @@
         public string? FirstName { get; set; }
         public string? LastName { get; set; }      
         public string? Password { get; set; }
+
+        public string Roles = "User";
+
+        public bool IsActive = true;
+
+        public DateTime CreatedAt = DateTime.Now;
+
+        public DateTime UpdatedAt = DateTime.Now;
+
+        
     }
 }
