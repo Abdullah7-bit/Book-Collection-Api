@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Books_Manager_Task")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+91d94659adc2601adca7cbc44011ed0eedab6ac9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bc51356564887e1a048428cf72d2be1c32ad553d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Books_Manager_Task")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Books_Manager_Task")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
