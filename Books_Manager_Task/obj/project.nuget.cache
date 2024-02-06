@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "EqEuDvzjFqM8W37dLhJp4eYgPu2dkkY+vP7HKY/p+Mx7EbMHUxEx9Qp6G/XFRfNaEdDLevSfPzDz/L0yw1o+/w==",
+  "dgSpecHash": "HfqV1xRSi9+eAcHa5/PU8/r06c3EvYyVWiqq0q7Ru44KMC05ceRZ0CUqEFODumToAGoxxcUtUw15uMTOmHXdDg==",
   "success": true,
   "projectFilePath": "C:\\Users\\MYSQ\\source\\repos\\Books_Manager_Task\\Books_Manager_Task\\Books_Manager_Task.csproj",
   "expectedPackageFiles": [
@@ -45,12 +45,12 @@
     "C:\\Users\\MYSQ\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
     "C:\\Users\\MYSQ\\.nuget\\packages\\microsoft.identity.client\\4.56.0\\microsoft.identity.client.4.56.0.nupkg.sha512",
     "C:\\Users\\MYSQ\\.nuget\\packages\\microsoft.identity.client.extensions.msal\\4.56.0\\microsoft.identity.client.extensions.msal.4.56.0.nupkg.sha512",
-    "C:\\Users\\MYSQ\\.nuget\\packages\\microsoft.identitymodel.abstractions\\7.3.0\\microsoft.identitymodel.abstractions.7.3.0.nupkg.sha512",
+    "C:\\Users\\MYSQ\\.nuget\\packages\\microsoft.identitymodel.abstractions\\7.3.1\\microsoft.identitymodel.abstractions.7.3.1.nupkg.sha512",
     "C:\\Users\\MYSQ\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\7.3.0\\microsoft.identitymodel.jsonwebtokens.7.3.0.nupkg.sha512",
-    "C:\\Users\\MYSQ\\.nuget\\packages\\microsoft.identitymodel.logging\\7.3.0\\microsoft.identitymodel.logging.7.3.0.nupkg.sha512",
+    "C:\\Users\\MYSQ\\.nuget\\packages\\microsoft.identitymodel.logging\\7.3.1\\microsoft.identitymodel.logging.7.3.1.nupkg.sha512",
     "C:\\Users\\MYSQ\\.nuget\\packages\\microsoft.identitymodel.protocols\\7.1.2\\microsoft.identitymodel.protocols.7.1.2.nupkg.sha512",
     "C:\\Users\\MYSQ\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\7.1.2\\microsoft.identitymodel.protocols.openidconnect.7.1.2.nupkg.sha512",
-    "C:\\Users\\MYSQ\\.nuget\\packages\\microsoft.identitymodel.tokens\\7.3.0\\microsoft.identitymodel.tokens.7.3.0.nupkg.sha512",
+    "C:\\Users\\MYSQ\\.nuget\\packages\\microsoft.identitymodel.tokens\\7.3.1\\microsoft.identitymodel.tokens.7.3.1.nupkg.sha512",
     "C:\\Users\\MYSQ\\.nuget\\packages\\microsoft.net.http.headers\\2.1.1\\microsoft.net.http.headers.2.1.1.nupkg.sha512",
     "C:\\Users\\MYSQ\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\MYSQ\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",

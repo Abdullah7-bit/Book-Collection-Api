@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -41,6 +42,14 @@ namespace Books_Manager_Task.Controllers
                         // Creation of Token
                         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
                         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+                        var claims = new[]
+                        {
+                            new Claim(ClaimTypes.NameIdentifier, user_exist.Username),
+                            new Claim(ClaimTypes.Email, user_exist.Email),
+                            new Claim(ClaimTypes.GivenName , user_exist.FirstName),
+                            new Claim(ClaimTypes.Surname , user_exist.LastName),
+                            new Claim(ClaimTypes.Role , user_exist.Roles)
+                        };
 
                         var Sectoken = new JwtSecurityToken(_config["Jwt:Issuer"],
                           _config["Jwt:Issuer"],
@@ -87,58 +96,70 @@ namespace Books_Manager_Task.Controllers
         [HttpPost("signup")]
         public IActionResult SignUp([FromBody] UserSignUpModel userSignUpModel)
         {
-            // Encoding the password
-            var hashed_password = EncodePasswordToBase64(userSignUpModel.Password);          
-            
-
-            // Creation of Token
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-            var Sectoken = new JwtSecurityToken(_config["Jwt:Issuer"],
-              _config["Jwt:Issuer"],
-              expires: DateTime.Now.AddMinutes(480),
-              signingCredentials: credentials);
-
-            var token = new JwtSecurityTokenHandler().WriteToken(Sectoken);
-
-            // Experiment
-
-            // Extract expiration time and date
-            //var expirationDateTime = Sectoken.ValidFrom;
-            DateTime currentTime = DateTime.Now;
-            DateTime expirationTime = currentTime.AddMinutes(480);
-            var token_lifetime = new JwtSecurityTokenHandler().SetDefaultTimesOnTokenCreation;
-            // End of Experiment
-
-            /* Storing data in DB.
-             */
-            var user = new User
+            try
             {
-                Username = userSignUpModel.Username,
-                Email = userSignUpModel.Email,
-                FirstName = userSignUpModel.FirstName,
-                LastName = userSignUpModel.LastName,
-                Password = hashed_password,
-                Salt = " random salt value",
-                Roles = userSignUpModel.Roles,
-                IsActive = userSignUpModel.IsActive,
-                CreatedAt = userSignUpModel.CreatedAt,
-                UpdatedAt = userSignUpModel.UpdatedAt,
-                LastLogin = userSignUpModel.UpdatedAt,
-                Token = token,
-                RefreshToken = "random refresh value",
-                TokenExpiration = expirationTime,
-                TokenCreatedAt = DateTime.Now.ToString()
-
-            };
-            _dbcontext.Users.Add(user);
-            _dbcontext.SaveChanges();
+                // Encoding the password
+                var hashed_password = EncodePasswordToBase64(userSignUpModel.Password);
 
 
-            return Ok($"SignUp Successfully!! {expirationTime}");
+                // Creation of Token
+                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+                var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+                
+
+                // Adding 
+
+                var Sectoken = new JwtSecurityToken(_config["Jwt:Issuer"],
+                  _config["Jwt:Issuer"],
+                  expires: DateTime.Now.AddMinutes(480),
+                  signingCredentials: credentials);
+
+                var token = new JwtSecurityTokenHandler().WriteToken(Sectoken);
+
+                // Experiment
+
+                // Extract expiration time and date
+                //var expirationDateTime = Sectoken.ValidFrom;
+                DateTime currentTime = DateTime.Now;
+                DateTime expirationTime = currentTime.AddMinutes(480);
+                var token_lifetime = new JwtSecurityTokenHandler().SetDefaultTimesOnTokenCreation;
+                // End of Experiment
+
+                /* Storing data in DB.
+                 */
+                var user = new User
+                {
+                    Username = userSignUpModel.Username,
+                    Email = userSignUpModel.Email,
+                    FirstName = userSignUpModel.FirstName,
+                    LastName = userSignUpModel.LastName,
+                    Password = hashed_password,
+                    Salt = " random salt value",
+                    Roles = userSignUpModel.Roles,
+                    IsActive = userSignUpModel.IsActive,
+                    CreatedAt = userSignUpModel.CreatedAt,
+                    UpdatedAt = userSignUpModel.UpdatedAt,
+                    LastLogin = userSignUpModel.UpdatedAt,
+                    Token = token,
+                    RefreshToken = "random refresh value",
+                    TokenExpiration = expirationTime,
+                    TokenCreatedAt = DateTime.Now.ToString()
+
+                };
+                _dbcontext.Users.Add(user);
+                _dbcontext.SaveChanges();
+
+
+                return Ok($"SignUp Successfully!! {expirationTime}");
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Error while registring the user data in DB, Details: " + ex.Message);
+            }
+
+            
         }
-
 
 
         /* Encoding & Decoding of Password
