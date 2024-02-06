@@ -28,8 +28,6 @@ namespace Books_Manager_Task.Controllers
         {
             try
             {
-                //var input_Password = HashPasword(userSignInModel.Password, out var salt2);
-
                 _logger.LogInformation("Checkpoint: Executing the try clause in Sigin API");
                 var user_exist = _dbcontext.Users.SingleOrDefault(ue => ue.Email == userSignInModel.Email && ue.Password == EncodePasswordToBase64(userSignInModel.Password));
 
@@ -76,7 +74,6 @@ namespace Books_Manager_Task.Controllers
                 {
                     return Unauthorized(new { Message = "Invalid Email or password" });
                 }
-                
 
             }
             catch(Exception ex)
@@ -90,12 +87,9 @@ namespace Books_Manager_Task.Controllers
         [HttpPost("signup")]
         public IActionResult SignUp([FromBody] UserSignUpModel userSignUpModel)
         {
-            // Hasing the password
-            var hashed_password = EncodePasswordToBase64(userSignUpModel.Password);
+            // Encoding the password
+            var hashed_password = EncodePasswordToBase64(userSignUpModel.Password);          
             
-            //var salt_final = Convert.ToHexString(salt);
-            // End of Hasing the password
-
 
             // Creation of Token
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
@@ -117,15 +111,8 @@ namespace Books_Manager_Task.Controllers
             var token_lifetime = new JwtSecurityTokenHandler().SetDefaultTimesOnTokenCreation;
             // End of Experiment
 
-
-            // Storing the token in Database.
-            //user_exist.Token = token;
-            //user_exist.TokenExpiration = expirationDateTime;
-            //user_exist.TokenCreatedAt = expirationDateTime.ToString();
-            //user_exist.TokenExpiration
-
-
-            // End of Hasing the password
+            /* Storing data in DB.
+             */
             var user = new User
             {
                 Username = userSignUpModel.Username,
@@ -153,28 +140,10 @@ namespace Books_Manager_Task.Controllers
         }
 
 
-        // Method for Hashing the Password with salt
-        //private string HashPasword(string password, out byte[] salt)
-        //{
-        //    const int keySize = 10;
-        //    const int iterations = 30;
-        //    HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
-        //    salt = RandomNumberGenerator.GetBytes(keySize);
 
-        //    var hash = Rfc2898DeriveBytes.Pbkdf2(
-        //        Encoding.UTF8.GetBytes(password),
-        //        salt,
-        //        iterations,
-        //        hashAlgorithm,
-        //        keySize);
-
-        //    return Convert.ToHexString(hash);
-        //}
-        // End of Method for Hashing the Password with salt
-
-        // Encoding & Decoding of Password
-
-        //this function Convert to Encord your Password
+        /* Encoding & Decoding of Password
+         * this function Convert to Encord your Password
+         */
         private string EncodePasswordToBase64(string password)
         {
             try
@@ -189,22 +158,10 @@ namespace Books_Manager_Task.Controllers
                 throw new Exception("Error in base64Encode" + ex.Message);
             }
         }
-        //this function Convert to Decord your Password
-        private string DecodeFrom64(string encodedData)
-        {
-            System.Text.UTF8Encoding encoder = new System.Text.UTF8Encoding();
-            System.Text.Decoder utf8Decode = encoder.GetDecoder();
-            byte[] todecode_byte = Convert.FromBase64String(encodedData);
-            int charCount = utf8Decode.GetCharCount(todecode_byte, 0, todecode_byte.Length);
-            char[] decoded_char = new char[charCount];
-            utf8Decode.GetChars(todecode_byte, 0, todecode_byte.Length, decoded_char, 0);
-            string result = new String(decoded_char);
-            return result;
-        }
 
         /*
          * How to confirm password while login because the Password is hashed?
-         * (Input Password -> Hashed) <=Compared=> Stored Hashed Password
+         * (Input Password -> Encode) <=Compared=> Stored Encode Password
          */
     }
 }
