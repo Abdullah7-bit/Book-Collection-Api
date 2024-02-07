@@ -1,6 +1,7 @@
 ﻿using Books_Manager_Task.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -18,7 +19,7 @@ namespace Books_Manager_Task.Controllers
         public IActionResult PublicEndPoint()
         {
             var currentuser = GetCurrentUser();
-            return Ok($"Hi {currentuser.FirstName}, with the role of {currentuser.Roles}");
+            return Ok($"Hi {currentuser.Username.ToUpper()}, with the role of {currentuser.Roles}");
         }
 
         private User GetCurrentUser()
@@ -40,7 +41,11 @@ namespace Books_Manager_Task.Controllers
                 };
 
             }
-            return null;
+            else
+            {
+                return null;
+            }
+            
         }
     }
 }

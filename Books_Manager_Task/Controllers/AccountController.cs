@@ -53,6 +53,7 @@ namespace Books_Manager_Task.Controllers
 
                         var Sectoken = new JwtSecurityToken(_config["Jwt:Issuer"],
                           _config["Jwt:Issuer"],
+                          claims,
                           expires: DateTime.Now.AddMinutes(480),
                           signingCredentials: credentials);
 
@@ -87,6 +88,7 @@ namespace Books_Manager_Task.Controllers
             }
             catch(Exception ex)
             {
+                _logger.LogError(ex, "Stopped program because of exception");
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Message = $"Internal Sever Error {ex}" });
             }
             
