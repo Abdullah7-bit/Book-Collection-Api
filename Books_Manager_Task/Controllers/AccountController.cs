@@ -34,11 +34,9 @@ namespace Books_Manager_Task.Controllers
 
                 if (user_exist != null)
                 {
-                    // Check if the token is expired
-                    if (user_exist.TokenExpiration < DateTime.Now)
+                    // Check if the token is not assigned or expired
+                    if (user_exist.Token == null && user_exist.TokenExpiration < DateTime.Now)
                     {
-                        // Assigning New Token to User
-
                         // Creation of Token
                         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
                         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -67,13 +65,9 @@ namespace Books_Manager_Task.Controllers
 
                         _dbcontext.SaveChanges();
 
-                        return Unauthorized(new { Message = "Token has expired. Please log in again." });
-                        /*
-                         * Will Redirect User to again login screen in the front end.
-                         */
+                        return Ok("Login Successfully!!");
                     }
-                    else
-                    {
+                    else { 
                         return Ok($"Login Successfully. To check other api here is the JSON WEB Token: {user_exist.Token}, Token lifetime: {user_exist.TokenExpiration}");
 
                         // The returning document above will be stored on the front-end to the 
@@ -103,31 +97,6 @@ namespace Books_Manager_Task.Controllers
                 // Encoding the password
                 var hashed_password = EncodePasswordToBase64(userSignUpModel.Password);
 
-
-                // Creation of Token
-                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-                var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-                
-
-                // Adding 
-
-                var Sectoken = new JwtSecurityToken(_config["Jwt:Issuer"],
-                  _config["Jwt:Issuer"],
-                  expires: DateTime.Now.AddMinutes(480),
-                  signingCredentials: credentials);
-
-                var token = new JwtSecurityTokenHandler().WriteToken(Sectoken);
-
-                // Experiment
-
-                // Extract expiration time and date
-                //var expirationDateTime = Sectoken.ValidFrom;
-                DateTime currentTime = DateTime.Now;
-                DateTime expirationTime = currentTime.AddMinutes(480);
-                var token_lifetime = new JwtSecurityTokenHandler().SetDefaultTimesOnTokenCreation;
-                // End of Experiment
-
                 /* Storing data in DB.
                  */
                 var user = new User
@@ -137,23 +106,23 @@ namespace Books_Manager_Task.Controllers
                     FirstName = userSignUpModel.FirstName,
                     LastName = userSignUpModel.LastName,
                     Password = hashed_password,
-                    Salt = " random salt value",
+                    Salt = "random salt value",
                     Roles = userSignUpModel.Roles,
                     IsActive = userSignUpModel.IsActive,
                     CreatedAt = userSignUpModel.CreatedAt,
                     UpdatedAt = userSignUpModel.UpdatedAt,
                     LastLogin = userSignUpModel.UpdatedAt,
-                    Token = token,
-                    RefreshToken = "random refresh value",
-                    TokenExpiration = expirationTime,
-                    TokenCreatedAt = DateTime.Now.ToString()
+                    Token = "",
+                    RefreshToken = "",
+                    TokenExpiration = DateTime.UnixEpoch,
+                    TokenCreatedAt = ""
 
                 };
                 _dbcontext.Users.Add(user);
                 _dbcontext.SaveChanges();
 
 
-                return Ok($"SignUp Successfully!! {expirationTime}");
+                return Ok("SignUp Successfully!!");
             }
             catch(Exception ex)
             {
@@ -182,7 +151,13 @@ namespace Books_Manager_Task.Controllers
             }
         }
 
-        /*
+
+
+        
+
+
+
+        /* Logic to be test while using hashing technique for the Password
          * How to confirm password while login because the Password is hashed?
          * (Input Password -> Encode) <=Compared=> Stored Encode Password
          */
