@@ -10,31 +10,6 @@ function AddBooks() {
     const [inputpublishDate, setinputpublishDate] = useState('');
     const [inputEdition, setinputEdition] = useState('');
     const [inputISBN, setinputISBN] = useState('');
-    const [books, setBooks] = useState();
-
-
-
-    
-
-    // Function to process the input value
-    const processInput = async (id,title, author, publish, publishDate, edition, ISBN) => {
-
-        // Perform further processing with the input values
-        console.log(`Id: ${id}`);
-        console.log(`Title: ${title}`);
-        console.log(`Author: ${author}`);
-        console.log(`Publish: ${publish}`);
-        console.log(`Publish Date: ${publishDate}`);
-        console.log(`Edition: ${edition}`);
-        console.log(`ISBN: ${ISBN}`);
-        try {
-            await populateBookData_Id(title, author, publish, publishDate, edition, ISBN);
-        }
-        catch (error) {
-            console.log("Ran into error: ", error);
-        }
-    };
-        
 
     // Event handler for input change
     const handleInputChange = (event) => {
@@ -60,20 +35,14 @@ function AddBooks() {
 
         // Event handler for button click
         const handleButtonClick = async () => {
-            // Call the function with the current input value
-            //processInput(inputTitle, inputAuthor, inputPublish, inputpublishDate, inputEdition, inputISBN);
-
-            
+                       
             await sendDataToApi();
 
                 // Redirect to the allbook route          
                 setTimeout(() => {
                     navigate("/allbook");
                 }, 5000);
-
-            
         };
-        
         
     const sendDataToApi = async () => {
         try {
@@ -122,23 +91,19 @@ function AddBooks() {
                 setinputEdition('');
                 setinputISBN('');
 
-
             } else {
                 console.error('Failed to send data to the API.');
             }
-
           
         } catch (error) {
             console.error('Error:', error);
         }
     };
 
-
-
   return (
       <>
           
-            <h1>Add a Book Record</h1>
+          <h1>Add a Book Record</h1>
           <div>
               <table className="table table-borderless">
                  
@@ -214,12 +179,6 @@ function AddBooks() {
     
       </>
     );
-
-    //async function populateAddBook() {
-    //    const response = await fetch(`api/Books/add`);
-    //    const data = await response.json();
-    //    setBooks(data);
-    //}
 }
 
 export default AddBooks;

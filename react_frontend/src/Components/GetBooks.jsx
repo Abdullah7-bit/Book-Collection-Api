@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 function GetBooks() {
 
     const [books, setBooks] = useState();
+
     
     // Using Delete functionality from the API
     const deleteBook = async (id) => {
@@ -44,6 +45,14 @@ function GetBooks() {
         populateBookData();
     }, []);
     
+    // Fetching the Data from the API 
+    async function populateBookData() {
+        const response = await fetch('api/Books');
+        const data = await response.json();
+        setBooks(data);
+       
+    }
+
 
     const contents = books === undefined
         ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
@@ -82,19 +91,17 @@ function GetBooks() {
                
             </tbody>
         </table>;
+
   return (
       <div>
           <h1 id="tabelLabel">All Books</h1>
           <p>This component demonstrates fetching data from the Get API Book.</p>
+          
           {contents}
+
       </div>
     )
-    // Fetching the Data from the API 
-    async function populateBookData() {
-        const response = await fetch('api/Books');
-        const data = await response.json();
-        setBooks(data);
-    }
+    
 }
 
 export default GetBooks;

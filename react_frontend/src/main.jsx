@@ -11,6 +11,7 @@ import {
     RouterProvider,
 } from "react-router-dom";
 import './index.css'
+import SignIn from './Components/Accounts/SignIn.jsx'
 
 
 // Adding React Router Functionality
@@ -28,12 +29,16 @@ const router = createBrowserRouter([
         }, {
             path: "/allbook",
             element: <GetBooks/>,
-            }, {
+        }, {
             path: "/searchbook",
             element: <BooksId/>,
-            }, {
+        }, {
             path: "/editbook/:id",
             element: <EditBook/>,
+            }, {
+            path: "/signin",
+                element: <SignIn/>
+
             }]
     }
 ]);

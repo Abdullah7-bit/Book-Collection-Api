@@ -65,10 +65,16 @@ namespace Books_Manager_Task.Controllers
 
                         _dbcontext.SaveChanges();
 
-                        return Ok("Login Successfully!!");
+                        //return StatusCode(StatusCodes.Status200OK, user_exist.Token);
+                        return StatusCode(StatusCodes.Status200OK, new
+                        {
+                            message = user_exist.Token
+                        });
                     }
-                    else { 
-                        return Ok($"Login Successfully. To check other api here is the JSON WEB Token: {user_exist.Token}, Token lifetime: {user_exist.TokenExpiration}");
+                    else {
+                        return StatusCode(StatusCodes.Status200OK, new { message = user_exist.Token });
+
+                        //return Ok($"Login Successfully. To check other api here is the JSON WEB Token: {user_exist.Token}, Token lifetime: {user_exist.TokenExpiration}");
 
                         // The returning document above will be stored on the front-end to the 
                     }
