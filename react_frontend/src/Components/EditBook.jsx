@@ -25,8 +25,12 @@ function EditBook() {
 
     const populateBookData_Id = async () => {
         try {
+            const token = localStorage.getItem('key');
             const response = await fetch(`https://localhost:7059/api/Books/${id}`, {
                 method: 'GET',
+                headers: {
+                    'Authorization' : `Bearer ${token}`
+                }
             });
 
             if (!response.ok) {
@@ -41,7 +45,9 @@ function EditBook() {
             }
 
             const data = await response.json();
-            console.log('Book data:', data);
+            /* Testing purpose
+             * console.log('Book data:', data);
+             */
 
             // Update state with the retrieved data
             setBooks({
@@ -83,10 +89,12 @@ function EditBook() {
     //  APi Interactivity
     const editBook = async () => {
         try {
+            const token = await localStorage.getItem('key');
             const response = await fetch(`https://localhost:7059/api/Books/update/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization' : `Bearer ${token}`
                 },
                 body: JSON.stringify({
                     id: books.id,

@@ -5,7 +5,6 @@ function SignIn() {
 
     let [email, setEmail] = useState('');
     let [password, setPassword] = useState('');
-    const [token, setToken] = useState('');
     const navigate = useNavigate();
     let update;
 
@@ -47,17 +46,20 @@ function SignIn() {
 
             if (response.ok) {
 
-                const data = response.json(); // Convert response to JSON
-                setToken(data.message); // Set the token from response data
+                const data = await response.json(); // Convert response to JSON               
+
+                // Store the JWT token in localStorage will used to implement Session on frontend
+                localStorage.setItem('key', data.message);
 
                 // Reset the input fields to Empty
                 setEmail('');
                 setPassword('');
 
             } else {
-                console.error('Failed to send data to the API.');
+                console.error('Failed to send data to the API.', response.statusText);
             }
 
+            
 
         } catch (error) {
             console.error('Error:', error);
@@ -65,8 +67,7 @@ function SignIn() {
     };
 
 
-    // Store the JWT token in localStorage will used to implement Session on frontend
-    sessionStorage.setItem('key', token);
+   
     return (
         /* 
             Input Form for Sigin

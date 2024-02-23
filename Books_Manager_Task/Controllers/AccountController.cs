@@ -35,7 +35,7 @@ namespace Books_Manager_Task.Controllers
                 if (user_exist != null)
                 {
                     // Check if the token is not assigned or expired
-                    if (user_exist.Token == null && user_exist.TokenExpiration < DateTime.Now)
+                    if (user_exist.Token == null || user_exist.TokenExpiration < DateTime.Now)
                     {
                         // Creation of Token
                         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
@@ -68,11 +68,14 @@ namespace Books_Manager_Task.Controllers
                         //return StatusCode(StatusCodes.Status200OK, user_exist.Token);
                         return StatusCode(StatusCodes.Status200OK, new
                         {
-                            message = user_exist.Token
+                            message = $"{user_exist.Token}"
                         });
                     }
                     else {
-                        return StatusCode(StatusCodes.Status200OK, new { message = user_exist.Token });
+                        return StatusCode(StatusCodes.Status200OK, new
+                        {
+                            message = $"{user_exist.Token}"
+                        });
 
                         //return Ok($"Login Successfully. To check other api here is the JSON WEB Token: {user_exist.Token}, Token lifetime: {user_exist.TokenExpiration}");
 

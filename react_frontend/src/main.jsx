@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 import './index.css'
 import SignIn from './Components/Accounts/SignIn.jsx'
+import SignUp from './Components/Accounts/SignUp.jsx'
 
 
 // Adding React Router Functionality
@@ -35,11 +36,15 @@ const router = createBrowserRouter([
         }, {
             path: "/editbook/:id",
             element: <EditBook/>,
-            }, {
+        }, {
             path: "/signin",
-                element: <SignIn/>
+            element: <SignIn/>
+        }, {
+            path: "/signup",
+            element: <SignUp/>
 
-            }]
+
+        }]
     }
 ]);
 

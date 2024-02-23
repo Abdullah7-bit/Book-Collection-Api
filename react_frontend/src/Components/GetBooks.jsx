@@ -10,8 +10,12 @@ function GetBooks() {
     // Using Delete functionality from the API
     const deleteBook = async (id) => {
         try {
+            const token = localStorage.getItem('key');
             const response = await fetch(`api/Books/delete/${id}`, {
                 method: 'DELETE',
+                headers: {
+                    'Authorization' : `Bearer ${token}`
+                }
             });
             
 
@@ -43,11 +47,21 @@ function GetBooks() {
     
     useEffect(() => {
         populateBookData();
+
     }, []);
     
     // Fetching the Data from the API 
     async function populateBookData() {
-        const response = await fetch('api/Books');
+        const token =  localStorage.getItem('key');
+        const response = await fetch('api/Books', {
+            headers: {
+                
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        
+
+        console.log('Response Status:', response.status);
         const data = await response.json();
         setBooks(data);
        

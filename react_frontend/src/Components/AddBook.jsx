@@ -10,6 +10,7 @@ function AddBooks() {
     const [inputpublishDate, setinputpublishDate] = useState('');
     const [inputEdition, setinputEdition] = useState('');
     const [inputISBN, setinputISBN] = useState('');
+    const [showToast, setShowToast] = useState(false);
 
     // Event handler for input change
     const handleInputChange = (event) => {
@@ -33,26 +34,29 @@ function AddBooks() {
     const navigate = useNavigate();
     let update;
 
-        // Event handler for button click
-        const handleButtonClick = async () => {
-                       
-            await sendDataToApi();
+    // Event handler for button click
+    const handleButtonClick = async () => {
 
-                // Redirect to the allbook route          
-                setTimeout(() => {
-                    navigate("/allbook");
-                }, 5000);
-        };
+        try {
+            await sendDataToApi();
+            // Redirect to the allbook route
+            navigate("/allbook");
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
         
     const sendDataToApi = async () => {
         try {
+            const token = localStorage.getItem('key');
             const response = await fetch('api/Books/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization' : `Bearer ${token}`
                 },
                 body: JSON.stringify({
-                    id: inputId,
+                    
                     title: inputTitle,
                     author: inputAuthor,
                     publisher: inputPublisher,
@@ -63,22 +67,6 @@ function AddBooks() {
             });
 
             if (response.ok) {         
-
-                update = (
-                    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-                        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                            <div class="toast-header">
-                                <img src="..." class="rounded me-2" alt="..." />
-                                <strong class="me-auto">Bootstrap</strong>
-                                <small>11 mins ago</small>
-                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                            </div>
-                            <div class="toast-body">
-                                Hello, world! This is a toast message.
-                            </div>
-                        </div>
-                    </div>
-                );
 
                 console.log('Data sent successfully!');
 
@@ -102,19 +90,17 @@ function AddBooks() {
 
   return (
       <>
-          
           <h1>Add a Book Record</h1>
           <div>
               <table className="table table-borderless">
                  
                   <tbody>
-                      <tr>
-                          <th scope="row">ID : </th>
-                          <td>
-                              <input type="number" name="inputId" value={inputId} onChange={handleInputChange} />
-                          </td>
-
-                      </tr>
+                      {/*<tr>*/}
+                      {/*    <th scope="row">ID : </th>*/}
+                      {/*    <td>*/}
+                      {/*        <input type="number" name="inputId" value={inputId} onChange={handleInputChange} />*/}
+                      {/*    </td>*/}
+                      {/*</tr>*/}
                       <tr>
                           <th scope="row">Title : </th>
                           <td>
@@ -160,23 +146,26 @@ function AddBooks() {
                           <td>
                               <button id="liveToastBtn" onClick={handleButtonClick}>Add Book</button>
                           </td>
-                          {update}
+                          {showToast && (
+                              <div className="toast-container position-fixed bottom-0 end-0 p-3">
+                                  <div id="liveToast" className="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                                      <div className="toast-header">
+                                          <img src="..." className="rounded me-2" alt="..." />
+                                          <strong className="me-auto">Bootstrap</strong>
+                                          <small>11 mins ago</small>
+                                          <button type="button" className="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                      </div>
+                                      <div className="toast-body">
+                                          Hello, world! This is a toast message.
+                                      </div>
+                                  </div>
+                              </div>
+                          )}
                       </tr>
                       
                   </tbody>
-              </table>
-
-
-            
-                 
-                  
-
-             
-              
+              </table>           
           </div>
-
-      
-    
       </>
     );
 }

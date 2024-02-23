@@ -91,7 +91,12 @@ function BooksId() {
     
 
     async function populateBookData_Id() {
-        const response = await fetch(`api/Books/${inputValue}`);
+        const token = localStorage.getItem('key');
+        const response = await fetch(`api/Books/${inputValue}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         const data = await response.json();
         setBooks(data);
     }
