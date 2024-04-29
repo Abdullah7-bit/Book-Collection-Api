@@ -1,0 +1,106 @@
+﻿openapi: "3.0.1"
+info:
+  title: "BMT API's"
+  version: "v1"
+paths:
+  "/api/Account/signin":
+    post:
+      tags:
+        - "Account"
+      requestBody:
+        content:
+          application/json: {}
+      responses:
+        "200":
+          description: "Success"
+  "/api/Account/signup":
+    post:
+      tags:
+        - "Account"
+      requestBody:
+        content:
+          application/json: {}
+      responses:
+        "200":
+          description: "Success"
+  "/api/Books":
+    get:
+      tags:
+        - "Books"
+      responses:
+        "200":
+          description: "Success"
+          content:
+            text/plain: {}
+            application/json: {}
+            text/json: {}
+  "/api/Books/{id}":
+    get:
+      tags:
+        - "Books"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+      responses:
+        "200":
+          description: "Success"
+          content:
+            text/plain: {}
+            application/json: {}
+            text/json: {}
+  "/api/Books/add":
+    post:
+      tags:
+        - "Books"
+      requestBody:
+        content:
+          application/json: {}
+      responses:
+        "200":
+          description: "Success"
+          content:
+            text/plain: {}
+            application/json: {}
+            text/json: {}
+  "/api/Books/update/{id}":
+    put:
+      tags:
+        - "Books"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+      requestBody:
+        content:
+          application/json: {}
+      responses:
+        "200":
+          description: "Success"
+  "/api/Books/delete/{id}":
+    delete:
+      tags:
+        - "Books"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+      responses:
+        "200":
+          description: "Success"
+  "/api/Values/Public":
+    get:
+      tags:
+        - "Values"
+      responses:
+        "200":
+          description: "Success"

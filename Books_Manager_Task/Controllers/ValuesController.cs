@@ -13,13 +13,12 @@ namespace Books_Manager_Task.Controllers
     public class ValuesController : ControllerBase
     {
 
-        [Authorize]
         [HttpGet("Public")]
 
         public IActionResult PublicEndPoint()
         {
-            var currentuser = GetCurrentUser();
-            return Ok($"Hi {currentuser.Username.ToUpper()}, with the role of {currentuser.Roles}");
+            //var currentuser = GetCurrentUser();
+            return Ok($"Successfully hit public endpoint.");
         }
 
         private User GetCurrentUser()

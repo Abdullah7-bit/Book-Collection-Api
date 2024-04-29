@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Books_Manager_Task.Controllers
 {
-    [Authorize]
+
     [Route("api/[controller]")]
     [ApiController]
     public class BooksController : ControllerBase
@@ -27,7 +27,6 @@ namespace Books_Manager_Task.Controllers
 
         }
 
-
         //GET: api/Books
        
         [HttpGet]
@@ -41,10 +40,13 @@ namespace Books_Manager_Task.Controllers
                 {
                     return StatusCode(StatusCodes.Status404NotFound, new { message = "No Data is present in Database." });
                 }
-                return await _dbContext.Books.ToListAsync();
+                //return await _dbContext.Books.ToListAsync();
+                return await _dbContext.Books
+                      .FromSqlInterpolated($"EXEC GetBooks")
+                      .ToListAsync();
 
-                //throw new Exception("Error occured");
-                
+
+                //throw new Exception("Error occured");                
 
             }
             catch(Exception ex)
@@ -58,30 +60,43 @@ namespace Books_Manager_Task.Controllers
 
         //GET: api/Books/:id
         [HttpGet("{id}")]
-        public async Task<ActionResult<Book>> GetBooks(int id)
+        /* 
+         * Chaning the input parameter from
+         * int id --> string authorName
+         * 
+         *  2nd If block changes in exception
+         *  id ---> authorName
+         */
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooks(string authorName)
         {
             try
             {
-                _logger.LogInformation("This is the GetBooks By ID API!");
+                _logger.LogInformation("This is the GetBooks By Author API!");
                 if (_dbContext == null)
                 {
-                    return StatusCode(StatusCodes.Status404NotFound, new { message = "No Data is present in Database." }); ;
+                    return StatusCode(StatusCodes.Status404NotFound, new { message = "No Data is present in Database." });
                 }
-                var book = await _dbContext.Books.FindAsync(id);
-                if (book == null)
-                {
-                    return StatusCode(StatusCodes.Status404NotFound, new { message = $"Books Table does not contain data for ID : {id}." }); ;
-                }
-                return book;
 
+                var books = await _dbContext.Books
+                      .FromSqlInterpolated($"EXEC GetBooksByAuthor {authorName}")
+                      .ToListAsync();
+
+                if (books != null && books.Any())
+                {
+                    return books;
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status404NotFound, new { message = $"No books found for author: {authorName}." });
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex.ToString());
-                return StatusCode(StatusCodes.Status500InternalServerError, new { message = $"An error occurred while processing the request For Parameter GET API. Error details: {ex}" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = $"An error occurred while processing the request for GET API. Error details: {ex}" });
             }
-            
         }
+
 
         // POST: api/Books
         [HttpPost("add")]
@@ -89,7 +104,6 @@ namespace Books_Manager_Task.Controllers
         {
             try
             {
-
                 _dbContext.Books.Add(book);
                 await _dbContext.SaveChangesAsync();
 
@@ -100,7 +114,7 @@ namespace Books_Manager_Task.Controllers
                 _logger.LogError(ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, new { message = $"An error occurred while processing the request For POST API. Error details: {ex}" });
             }
-            
+           
         }
 
 
