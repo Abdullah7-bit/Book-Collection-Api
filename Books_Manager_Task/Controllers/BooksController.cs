@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
-
 using Azure.Core;
 using Microsoft.AspNetCore.Authorization;
 
@@ -24,9 +23,9 @@ namespace Books_Manager_Task.Controllers
             _dbContext = dbContext;
             _logger = logger;
             _logger.LogInformation(1, "Nlog Injected into BooksController");
-
         }
 
+        
         //GET: api/Books
        
         [HttpGet]
@@ -67,7 +66,7 @@ namespace Books_Manager_Task.Controllers
          *  2nd If block changes in exception
          *  id ---> authorName
          */
-        public async Task<ActionResult<IEnumerable<Book>>> GetBooks(string authorName)
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooks(int id)
         {
             try
             {
@@ -78,7 +77,7 @@ namespace Books_Manager_Task.Controllers
                 }
 
                 var books = await _dbContext.Books
-                      .FromSqlInterpolated($"EXEC GetBooksByAuthor {authorName}")
+                      .FromSqlInterpolated($"EXEC GetBooksById {id}")
                       .ToListAsync();
 
                 if (books != null && books.Any())
@@ -87,7 +86,7 @@ namespace Books_Manager_Task.Controllers
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status404NotFound, new { message = $"No books found for author: {authorName}." });
+                    return StatusCode(StatusCodes.Status404NotFound, new { message = $"No books found for author: {id}." });
                 }
             }
             catch (Exception ex)
@@ -132,9 +131,9 @@ namespace Books_Manager_Task.Controllers
 
             try
             {
-                await _dbContext.SaveChangesAsync();
+                await _dbContext.SaveChangesAsync(); 
             }
-            catch (DBConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
                 if (!BooksExists(id))
                 {
@@ -142,13 +141,17 @@ namespace Books_Manager_Task.Controllers
                 }
                 else
                 {
-                    throw;
+                    //throw;
+                    return StatusCode(StatusCodes.Status500InternalServerError, new { message = $"An error occurred while processing the request For PUT API. Error details: {ex}" });
+
                 }
 
             }
             return StatusCode(StatusCodes.Status202Accepted, new { message = "Book Details Updated Successfully" }); 
 
         }
+        
+        
         private bool BooksExists(long id)
         {
             return (_dbContext.Books?.Any(e => e.Id == id)).GetValueOrDefault();
