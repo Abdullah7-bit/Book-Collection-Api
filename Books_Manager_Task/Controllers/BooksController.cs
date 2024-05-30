@@ -70,7 +70,7 @@ namespace Books_Manager_Task.Controllers
         {
             try
             {
-                _logger.LogInformation("This is the GetBooks By Author API!");
+                _logger.LogInformation("This is the GetBooks By Id API!");
                 if (_dbContext == null)
                 {
                     return StatusCode(StatusCodes.Status404NotFound, new { message = "No Data is present in Database." });
@@ -103,10 +103,21 @@ namespace Books_Manager_Task.Controllers
         {
             try
             {
-                _dbContext.Books.Add(book);
-                await _dbContext.SaveChangesAsync();
+                if (book.Author == " ")
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, new { message = "Author cannot be null" });
 
-                return CreatedAtAction(nameof(GetBooks), new { id = book.Id }, book);
+                }
+                else
+                {
+                    _dbContext.Books.Add(book);
+                    await _dbContext.SaveChangesAsync();
+
+
+
+                    return CreatedAtAction(nameof(GetBooks), new { id = book.Id }, book);
+                }
+               
             }
             catch(Exception ex)
             {
@@ -177,8 +188,19 @@ namespace Books_Manager_Task.Controllers
                 {
                     return StatusCode(StatusCodes.Status404NotFound, new { message = $"No Record is present for given {id}." });
                 }
-                _dbContext.Books.Remove(book);
-                await _dbContext.SaveChangesAsync();
+                
+                    /*
+                     * Will handle the delete request here
+                     * Look into How we are going to use async keyword in query execution.
+                     */
+
+                    //_dbContext.Books.Remove(book);
+                    //await _dbContext.SaveChangesAsync();
+
+                    var books = await _dbContext.Database.ExecuteSqlInterpolatedAsync($"EXEC sp_DeleteBooks {id}");
+                   
+               
+                
 
                 return StatusCode(StatusCodes.Status200OK, new { message = $"The Record for id: {id} is deleted Successfully." });
             }catch(Exception ex)
