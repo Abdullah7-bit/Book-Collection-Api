@@ -58,6 +58,7 @@ namespace Books_Manager_Task.Controllers
                         var token = new JwtSecurityTokenHandler().WriteToken(Sectoken);
 
                         user_exist.Token = token;
+                        // End of Token Creation
                         user_exist.LastLogin = DateTime.Now;
                         user_exist.CreatedAt = DateTime.Now;
                         user_exist.TokenExpiration = DateTime.Now.AddMinutes(480);
